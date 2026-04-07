@@ -3,7 +3,7 @@ pipeline{
     environment{
         NODE_ENV = 'production'
         NETLIFY_PROJECT_ID ="a93937ad-d751-494d-ac5a-541f0095e053"
-        NETLIFY_AUTH_TOKEN = credentials('EC2_Token')
+        NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN')
     }
     stages{
         stage("Build"){

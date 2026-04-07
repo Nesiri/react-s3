@@ -51,7 +51,7 @@ pipeline{
                 steps{
                     sh '''
                          npm install netlify-cli
-                          netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID --auth=$NETLIFY_AUTH_TOKEN --no-build
+                        npx netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID --auth=$NETLIFY_AUTH_TOKEN --no-build
                     '''
                 }
             

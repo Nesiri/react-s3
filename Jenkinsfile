@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         NODE_ENV = 'production'
-        NETLIFY_PROJECT_ID ="a93937ad-d751-494d-ac5a-541f0095e053"
+        NETLIFY_PROJECT_ID ="4d8e5b2b-4507-47ee-9127-be4377ef40a3"
         NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN')
     }
     stages{

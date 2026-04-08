@@ -45,7 +45,7 @@ pipeline{
                 }
            }
             environment {
-                AWS_DEFAULT_REGION = 'US East (Ohio) us-east-2'
+                AWS_DEFAULT_REGION = 'us-east-2'
             }
            steps{
                 withCredentials([usernamePassword(credentialsId: 'S3-ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {

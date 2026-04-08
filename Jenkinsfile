@@ -51,10 +51,10 @@ pipeline{
            steps{
                 withCredentials([usernamePassword(credentialsId: 'S3-ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')])
                  {
-                        sh " " "
+                        sh """
                             echo "Testing AWS CLI"
-                            aws s3 sync build/ s3://\${BUCKET_S3} --delete 
-                        " "  "
+                            aws s3 sync build/ s3://$BUCKET_S3 --delete
+                        """
                    }
                
               

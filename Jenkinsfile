@@ -1,10 +1,6 @@
 pipeline{
     agent any
-    environment{
-        NODE_ENV = 'production'
-        NETLIFY_PROJECT_ID ="4d8e5b2b-4507-47ee-9127-be4377ef40a3"
-        NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN')
-    }
+   
     stages{
         stage("Build"){
             agent{
@@ -40,23 +36,31 @@ pipeline{
             }
            
         }
-            stage("Deploy"){
-                agent{
-                    docker{
-                        image 'node:20-alpine'
-                        reuseNode true
-                    
-                    }
-            }
-                steps{
-                    sh '''
-                         npm install netlify-cli
-                        npx netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID --auth=$NETLIFY_AUTH_TOKEN --no-build
-                    '''
+        stage("Deploy S3"){
+          agent{
+                docker {
+                 image 'amazon/aws-cli'
+                  reuseNode true
+                 args '--entrypoint=""'
                 }
+           }
+            environment {
+                AWS_DEFAULT_REGION = 'US East (Ohio) us-east-2'
+            }
+           steps{
+                withCredentials([usernamePassword(credentialsId: 'S3-ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                        sh '''
+                            echo "Testing AWS CLI"
+                            aws s3 sync build/ s3://$practisebucket-s3 --delete
+                        '''
+                   }
+               
+              
             
             }
-    }
+        }   
+    
+     }
     post{
         always{
             echo "========always========"

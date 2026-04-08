@@ -46,12 +46,13 @@ pipeline{
            }
             environment {
                 AWS_DEFAULT_REGION = 'us-east-2'
+                PRACTISE_BUCKET_S3 = 'practisebucket-s3'    // Your actual S3 bucket name
             }
            steps{
                 withCredentials([usernamePassword(credentialsId: 'S3-ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                         sh '''
                             echo "Testing AWS CLI"
-                            aws s3 sync build/ s3://${practisebucket-s3} --delete # use this if name has - {}
+                            aws s3 sync build/ s3://$ PRACTISE_BUCKET_S3 --delete 
                         '''
                    }
                
